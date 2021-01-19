@@ -1,0 +1,25 @@
+<aside>
+  <p-button (click)="showUpload = true" label="Upload" icon="pi pi-cloud-upload" iconPos="left"></p-button>
+  <p-button (click)="showFolder = true" icon="pi pi-folder"></p-button>
+
+  <ul>
+    <li class="active"><span class="flex flex-align flex-left"><i class="pi pi-home"></i> My Drive</span></li>
+    <li><span class="flex flex-align flex-left"><i class="pi pi-lock"></i> Log Out</span></li>
+  </ul>
+</aside>
+
+<p-dialog header="Upload Files" [(visible)]="showUpload">
+  <p-fileUpload name="file" url="http://localhost:3000/uploads" (onUpload)="onUpload($event)" multiple="multiple">
+    <ng-template let-file pTemplate="file">
+      {{file.name}} - {{file.type}}
+    </ng-template>
+  </p-fileUpload>
+</p-dialog>
+
+<p-dialog header="Upload Files" [(visible)]="showFolder">
+  <span class="p-input-icon-left">
+    <i class="pi pi-folder"></i>
+    <input type="text" pInputText [(ngModel)]="folderName" placeholder="New Folder Name">
+  </span><br><br>
+  <p-button (click)="submitFolder()" label="Submit" icon="pi pi-check" iconPos="left"></p-button>
+</p-dialog>

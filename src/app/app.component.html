@@ -1,0 +1,39 @@
+<app-header></app-header>
+<article class="flex">
+  <app-sidebar></app-sidebar>
+  <div class="flex-fill">
+    <div id="breadcrumbs">
+      <p-button label="My Drive" icon="pi pi-angle-down" iconPos="right"></p-button>
+    </div>
+    <div id="options" class="flex flex-align">
+      <div>
+        Sort by: <p-dropdown [options]="[{label: 'Last Modified', value: 'recent'}]" [(ngModel)]="selectedSort"></p-dropdown>
+      </div>
+      <div id="view" class="flex flex-align flex-fill">
+        <div id="actions" *ngIf="selected !== ''">
+          <i class="pi pi-play" pTooltip="Play file" tooltipPosition="bottom"></i>
+          <i class="pi pi-external-link" pTooltip="Open file" tooltipPosition="bottom"></i>
+          <i class="pi pi-pencil" pTooltip="Edit file name" tooltipPosition="bottom"></i>
+          <i class="pi pi-save" pTooltip="Download file" tooltipPosition="bottom"></i>
+          <i class="pi pi-trash" pTooltip="Delete file" tooltipPosition="bottom"></i>
+        </div>
+        <p-button *ngIf="!view" (click)="view = !view" icon="pi pi-th-large" iconPos="right"></p-button>
+        <p-button *ngIf="view" (click)="view = !view" icon="pi pi-list" iconPos="right"></p-button>
+      </div>
+    </div>
+    <div id="files">
+      <div class="file-wrapper" *ngFor="let file of files">
+        <div class="file {{selected === file.name ? 'selected' : ''}} {{file.type}}" (click)="click(file)">
+          <div class="icon flex flex-align" style="{{file.type === 'image' ? 'background-image: url(/' + file.path + ')' : null}}">
+            <app-icon [type]="file.type"></app-icon>
+          </div>
+          <div class="name flex">
+            <app-icon [type]="file.type"></app-icon> <span class="flex-fill">{{file.name}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<p-toast></p-toast>
